@@ -1,4 +1,4 @@
-package com.br.benditopercal.bendito_percal;
+package com.br.benditopercal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
