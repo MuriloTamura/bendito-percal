@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: bendito-percal-db
+    environment:
+      POSTGRES_DB: bendito_percal
+      POSTGRES_USER: bendito_percal
+      POSTGRES_PASSWORD: bendito_percal
+    ports:
+      - "5432:5432"
+    volumes:
+      - bendito_percal_data:/var/lib/postgresql/data
+
+volumes:
+  bendito_percal_data:
