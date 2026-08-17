@@ -1,0 +1,2 @@
+INSERT INTO users (id, email, password_hash, name, role, active, created_at)
+VALUES (gen_random_uuid()::text, 'admin@benditopercal.com', '$2b$10$Wj.MkfB8OXOoxJr9li7ZcOj75BD7uR83zNLry.UqB.zIUFYsZSBGm', 'Administrador', 'ADMIN', true, now());

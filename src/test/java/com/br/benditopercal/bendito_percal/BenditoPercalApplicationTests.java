@@ -1,4 +1,4 @@
-package com.br.benditopercal.bendito_percal;
+package br.com.benditopercal.bendito_percal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
