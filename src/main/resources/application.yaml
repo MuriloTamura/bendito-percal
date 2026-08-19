@@ -11,3 +11,7 @@ spring:
     show-sql: true
   flyway:
     locations: classpath:db/migration
+
+app:
+  dashboard:
+    timezone: ${DASHBOARD_TIMEZONE:America/Fortaleza}

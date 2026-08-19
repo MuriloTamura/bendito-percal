@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.Instant;
 
 public interface ProductionOrderRepository extends JpaRepository<ProductionOrder, String> {
 
@@ -14,4 +15,6 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     @Override
     @EntityGraph(attributePaths = {"product", "items", "items.rawMaterial"})
     Optional<ProductionOrder> findById(String id);
+
+    long countByCreatedAtGreaterThanEqualAndCreatedAtLessThan(Instant start, Instant end);
 }
