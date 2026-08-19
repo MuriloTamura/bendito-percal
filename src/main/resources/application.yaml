@@ -15,3 +15,9 @@ spring:
 app:
   dashboard:
     timezone: ${DASHBOARD_TIMEZONE:America/Fortaleza}
+
+springdoc:
+  swagger-ui:
+    path: /docs
+  api-docs:
+    path: /v3/api-docs
