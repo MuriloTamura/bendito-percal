@@ -12,6 +12,8 @@ import br.com.benditopercal.shared.exception.BusinessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ProductionOrderService {
 
@@ -54,5 +56,16 @@ public class ProductionOrderService {
         productService.increaseStock(product.getId(), request.quantityProduced());
 
         return repository.save(order);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductionOrder> findAll() {
+        return repository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Transactional(readOnly = true)
+    public ProductionOrder findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BusinessException("Ordem de produção não encontrada."));
     }
 }
