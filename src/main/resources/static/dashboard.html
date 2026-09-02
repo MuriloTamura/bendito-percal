@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <style>
+    /* Estilos específicos do mini-gráfico de barras — só usados aqui, por isso inline */
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 140px;
+      padding-top: 10px;
+    }
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar {
+      width: 100%;
+      max-width: 34px;
+      background: var(--color-accent);
+      border-radius: 4px 4px 0 0;
+      min-height: 3px;
+    }
+    .bar-col .bar-day {
+      font-size: 11px;
+      color: var(--color-ink-faint);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-lockup">
+        <div class="brand-mark"><span id="brand-initial">}{</span></div>
+        <div>
+          <strong id="brand-name">Sistema de Gestão</strong>
+          <small id="brand-tagline">Gerencie sua empresa</small>
+        </div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><span title="Em breve neste piloto" style="opacity:.45; display:flex; padding:9px 12px; font-size:14px;">Produtos</span></li>
+        <li><span title="Em breve neste piloto" style="opacity:.45; display:flex; padding:9px 12px; font-size:14px;">Matérias-primas</span></li>
+        <li><span title="Em breve neste piloto" style="opacity:.45; display:flex; padding:9px 12px; font-size:14px;">Produção</span></li>
+        <li><span title="Em breve neste piloto" style="opacity:.45; display:flex; padding:9px 12px; font-size:14px;">Vendas</span></li>
+        <li><span title="Em breve neste piloto" style="opacity:.45; display:flex; padding:9px 12px; font-size:14px;">Estoque</span></li>
+      </ul>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-user">
+          <strong id="user-name">—</strong>
+          <span id="user-role">—</span>
+        </div>
+        <button class="btn btn-ghost" id="logout-btn" title="Sair" style="padding:7px 10px;">Sair</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="page-head">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="page-subtitle">Visão geral da operação de hoje</p>
+        </div>
+        <span class="page-meta" id="generated-at"></span>
+      </div>
+
+      <hr class="fold-divider" />
+
+      <section class="stat-grid" id="stat-grid">
+        <div class="card stat-card">
+          <span class="stat-label">Vendas hoje</span>
+          <span class="stat-value skeleton" data-field="sales-count">…</span>
+          <span class="stat-hint" data-field="sales-items">—</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Faturamento hoje</span>
+          <span class="stat-value skeleton" data-field="revenue">…</span>
+          <span class="stat-hint">Total de vendas confirmadas</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Produções hoje</span>
+          <span class="stat-value skeleton" data-field="productions">…</span>
+          <span class="stat-hint">Ordens de produção registradas</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Produtos ativos</span>
+          <span class="stat-value skeleton" data-field="active-products">…</span>
+          <span class="stat-hint" data-field="active-products-hint">—</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Matérias-primas ativas</span>
+          <span class="stat-value skeleton" data-field="active-raw">…</span>
+          <span class="stat-hint" data-field="active-raw-hint">—</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-label">Itens em estoque baixo</span>
+          <span class="stat-value skeleton" data-field="low-stock-total">…</span>
+          <span class="stat-hint warn">Abaixo do mínimo cadastrado</span>
+        </div>
+      </section>
+
+      <hr class="fold-divider" />
+
+      <section class="panel-grid">
+        <div class="card">
+          <div class="panel-title">
+            <h2>Vendas recentes</h2>
+            <span class="muted">últimas 5</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th class="num">Total</th>
+                <th>Quando</th>
+              </tr>
+            </thead>
+            <tbody id="recent-sales-body">
+              <tr class="empty-row"><td colspan="3">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="panel-title">
+            <h2>Estoque baixo</h2>
+            <span class="muted">top 5</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th class="num">Saldo</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="low-stock-body">
+              <tr class="empty-row"><td colspan="3">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <hr class="fold-divider" />
+
+      <section class="panel-grid">
+        <div class="card">
+          <div class="panel-title">
+            <h2>Vendas — últimos 7 dias</h2>
+            <span class="muted" id="week-total">—</span>
+          </div>
+          <div class="bar-chart" id="week-chart">
+            <span class="skeleton">Carregando…</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="panel-title">
+            <h2>Mais vendidos</h2>
+            <span class="muted">30 dias</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th class="num">Qtd.</th>
+              </tr>
+            </thead>
+            <tbody id="top-products-body">
+              <tr class="empty-row"><td colspan="2">Carregando…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Carregando…</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script>
+    // Ponto de entrada único: tenta descobrir se já existe sessão válida
+    // (GET /auth/me) e decide para onde mandar o visitante.
+    api.get("/api/v1/auth/me")
+        .then(() => { window.location.replace("dashboard.html"); })
+        .catch(() => { window.location.replace("login.html"); });
+</script>
+</body>
+</html>

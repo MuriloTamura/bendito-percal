@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/login").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/docs").permitAll()
+                        .requestMatchers("/", "/index.html", "/login.html", "/dashboard.html", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(HttpBasicConfigurer::disable)
                 .formLogin(form -> form.disable())
