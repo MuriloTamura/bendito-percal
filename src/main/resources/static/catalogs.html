@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Cadastros básicos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+            rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand-lockup">
+
+            <div class="brand-mark">
+                <span id="brand-initial">}{</span>
+            </div>
+
+            <div>
+                <strong id="brand-name">
+                    Sistema de Gestão
+                </strong>
+
+                <small id="brand-tagline">
+                    Gerencie sua empresa
+                </small>
+            </div>
+
+        </div>
+
+
+        <ul class="sidebar-nav">
+
+            <li>
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="products.html">
+                    Produtos
+                </a>
+            </li>
+
+            <li>
+                <a href="catalogs.html" class="active">
+                    Cadastros
+                </a>
+            </li>
+
+            <li>
+        <span
+                class="nav-disabled"
+                title="Em breve"
+        >
+          Matérias-primas
+        </span>
+            </li>
+
+            <li>
+        <span
+                class="nav-disabled"
+                title="Em breve"
+        >
+          Produção
+        </span>
+            </li>
+
+            <li>
+        <span
+                class="nav-disabled"
+                title="Em breve"
+        >
+          Vendas
+        </span>
+            </li>
+
+            <li>
+        <span
+                class="nav-disabled"
+                title="Em breve"
+        >
+          Estoque
+        </span>
+            </li>
+
+        </ul>
+
+
+        <div class="sidebar-foot">
+
+            <div class="sidebar-user">
+                <strong id="user-name">—</strong>
+                <span id="user-role">—</span>
+            </div>
+
+            <button
+                    class="btn btn-ghost btn-small"
+                    id="logout-btn"
+                    title="Sair"
+            >
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- CONTEÚDO -->
+    <main class="main">
+
+        <div class="page-head">
+
+            <div>
+
+                <h1>
+                    Cadastros básicos
+                </h1>
+
+                <p class="page-subtitle">
+                    Gerencie as informações usadas por produtos e matérias-primas
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <hr class="fold-divider" />
+
+
+        <!-- EXPLICAÇÃO -->
+        <section class="catalog-intro">
+
+            <strong>
+                Como esses cadastros são usados?
+            </strong>
+
+            <p>
+                Categorias organizam produtos e matérias-primas.
+                Unidades de medida definem como o estoque é
+                controlado, por exemplo: unidade, metro, rolo ou kg.
+            </p>
+
+        </section>
+
+
+        <!-- GRID -->
+        <section class="catalog-grid">
+
+
+            <!-- ===================================== -->
+            <!-- CATEGORIAS -->
+            <!-- ===================================== -->
+
+            <article class="card catalog-card">
+
+                <div class="table-toolbar">
+
+                    <div>
+
+                        <h2>
+                            Categorias
+                        </h2>
+
+                        <p
+                                class="muted table-summary"
+                                id="categories-summary"
+                        >
+                            Carregando categorias…
+                        </p>
+
+                    </div>
+
+
+                    <button
+                            class="btn btn-primary"
+                            id="new-category-btn"
+                            type="button"
+                    >
+                        Nova categoria
+                    </button>
+
+                </div>
+
+
+                <div
+                        class="alert alert-danger"
+                        id="categories-error"
+                        role="alert"
+                ></div>
+
+
+                <div
+                        class="alert alert-success"
+                        id="categories-success"
+                        role="status"
+                ></div>
+
+
+                <div class="table-scroll">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+                                Categoria
+                            </th>
+
+                            <th>
+                                Criada em
+                            </th>
+
+                            <th class="actions-col">
+                                Ações
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody id="categories-body">
+
+                        <tr class="empty-row">
+
+                            <td colspan="3">
+                                Carregando…
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- ===================================== -->
+            <!-- UNIDADES -->
+            <!-- ===================================== -->
+
+            <article class="card catalog-card">
+
+                <div class="table-toolbar">
+
+                    <div>
+
+                        <h2>
+                            Unidades de medida
+                        </h2>
+
+                        <p
+                                class="muted table-summary"
+                                id="units-summary"
+                        >
+                            Carregando unidades…
+                        </p>
+
+                    </div>
+
+
+                    <button
+                            class="btn btn-primary"
+                            id="new-unit-btn"
+                            type="button"
+                    >
+                        Nova unidade
+                    </button>
+
+                </div>
+
+
+                <div
+                        class="alert alert-danger"
+                        id="units-error"
+                        role="alert"
+                ></div>
+
+
+                <div
+                        class="alert alert-success"
+                        id="units-success"
+                        role="status"
+                ></div>
+
+
+                <p class="catalog-note">
+                    No backend atual, unidades podem ser cadastradas
+                    e consultadas, mas ainda não podem ser editadas
+                    ou removidas.
+                </p>
+
+
+                <div class="table-scroll">
+
+                    <table class="data-table">
+
+                        <thead>
+
+                        <tr>
+
+                            <th>
+                                Unidade
+                            </th>
+
+                            <th>
+                                Abreviação
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody id="units-body">
+
+                        <tr class="empty-row">
+
+                            <td colspan="2">
+                                Carregando…
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- MODAL DE CATEGORIA -->
+<!-- ================================================= -->
+
+<div
+        class="modal-backdrop"
+        id="category-modal"
+        aria-hidden="true"
+>
+
+    <div
+            class="modal modal-small"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="category-modal-title"
+    >
+
+        <div class="modal-head">
+
+            <div>
+
+                <h2 id="category-modal-title">
+                    Nova categoria
+                </h2>
+
+                <p>
+                    As categorias são compartilhadas por
+                    produtos e matérias-primas.
+                </p>
+
+            </div>
+
+
+            <button
+                    class="icon-btn"
+                    type="button"
+                    id="category-modal-close"
+                    aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+                class="alert alert-danger"
+                id="category-form-error"
+                role="alert"
+        ></div>
+
+
+        <form id="category-form">
+
+            <div class="field">
+
+                <label for="category-name">
+                    Nome
+                </label>
+
+                <input
+                        id="category-name"
+                        name="name"
+                        type="text"
+                        required
+                        autocomplete="off"
+                        placeholder="Ex.: Cama e banho"
+                />
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                        class="btn btn-ghost"
+                        type="button"
+                        id="category-form-cancel"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                        class="btn btn-primary"
+                        type="submit"
+                        id="category-form-submit"
+                >
+                    Cadastrar categoria
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- MODAL DE UNIDADE -->
+<!-- ================================================= -->
+
+<div
+        class="modal-backdrop"
+        id="unit-modal"
+        aria-hidden="true"
+>
+
+    <div
+            class="modal modal-small"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="unit-modal-title"
+    >
+
+        <div class="modal-head">
+
+            <div>
+
+                <h2 id="unit-modal-title">
+                    Nova unidade de medida
+                </h2>
+
+                <p>
+                    Exemplos: unidade (un), metro (m),
+                    quilograma (kg) ou rolo (rl).
+                </p>
+
+            </div>
+
+
+            <button
+                    class="icon-btn"
+                    type="button"
+                    id="unit-modal-close"
+                    aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+                class="alert alert-danger"
+                id="unit-form-error"
+                role="alert"
+        ></div>
+
+
+        <form id="unit-form">
+
+            <div class="field">
+
+                <label for="unit-name">
+                    Nome
+                </label>
+
+                <input
+                        id="unit-name"
+                        name="name"
+                        type="text"
+                        required
+                        autocomplete="off"
+                        placeholder="Ex.: Metro"
+                />
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="unit-abbreviation">
+                    Abreviação
+                </label>
+
+                <input
+                        id="unit-abbreviation"
+                        name="abbreviation"
+                        type="text"
+                        maxlength="10"
+                        required
+                        autocomplete="off"
+                        placeholder="Ex.: m"
+                />
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                        class="btn btn-ghost"
+                        type="button"
+                        id="unit-form-cancel"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                        class="btn btn-primary"
+                        type="submit"
+                        id="unit-form-submit"
+                >
+                    Cadastrar unidade
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/catalogs.js"></script>
+
+</body>
+
+</html>
