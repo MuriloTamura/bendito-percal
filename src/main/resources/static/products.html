@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Produtos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+            rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand-lockup">
+            <div class="brand-mark">
+                <span id="brand-initial">}{</span>
+            </div>
+
+            <div>
+                <strong id="brand-name">Sistema de Gestão</strong>
+                <small id="brand-tagline">Gerencie sua empresa</small>
+            </div>
+        </div>
+
+        <ul class="sidebar-nav">
+
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="products.html" class="active">Produtos</a>
+            </li>
+
+            <li>
+        <span class="nav-disabled" title="Em breve">
+          Matérias-primas
+        </span>
+            </li>
+
+            <li>
+        <span class="nav-disabled" title="Em breve">
+          Produção
+        </span>
+            </li>
+
+            <li>
+        <span class="nav-disabled" title="Em breve">
+          Vendas
+        </span>
+            </li>
+
+            <li>
+        <span class="nav-disabled" title="Em breve">
+          Estoque
+        </span>
+            </li>
+
+        </ul>
+
+        <div class="sidebar-foot">
+
+            <div class="sidebar-user">
+                <strong id="user-name">—</strong>
+                <span id="user-role">—</span>
+            </div>
+
+            <button
+                    class="btn btn-ghost btn-small"
+                    id="logout-btn"
+                    title="Sair"
+            >
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main">
+
+        <div class="page-head page-head-actions">
+
+            <div>
+                <h1>Produtos</h1>
+
+                <p class="page-subtitle">
+                    Cadastre e acompanhe os produtos prontos para venda
+                </p>
+            </div>
+
+            <button
+                    class="btn btn-primary"
+                    id="new-product-btn"
+            >
+                Novo produto
+            </button>
+
+        </div>
+
+
+        <hr class="fold-divider" />
+
+
+        <!-- INDICADORES -->
+        <section class="stat-grid compact-stats">
+
+            <div class="card stat-card">
+
+        <span class="stat-label">
+          Produtos ativos
+        </span>
+
+                <span
+                        class="stat-value skeleton"
+                        id="products-count"
+                >
+          …
+        </span>
+
+                <span class="stat-hint">
+          Disponíveis para venda e produção
+        </span>
+
+            </div>
+
+
+            <div class="card stat-card">
+
+        <span class="stat-label">
+          Estoque baixo
+        </span>
+
+                <span
+                        class="stat-value skeleton"
+                        id="low-stock-count"
+                >
+          …
+        </span>
+
+                <span class="stat-hint warn">
+          No mínimo ou abaixo do mínimo cadastrado
+        </span>
+
+            </div>
+
+        </section>
+
+
+        <hr class="fold-divider" />
+
+
+        <!-- LISTA -->
+        <section class="card data-card">
+
+            <div class="table-toolbar">
+
+                <div>
+
+                    <h2>Lista de produtos</h2>
+
+                    <p
+                            class="muted table-summary"
+                            id="products-summary"
+                    >
+                        Carregando produtos…
+                    </p>
+
+                </div>
+
+
+                <div class="search-box">
+
+                    <label
+                            class="visually-hidden"
+                            for="product-search"
+                    >
+                        Buscar produto
+                    </label>
+
+                    <input
+                            id="product-search"
+                            type="search"
+                            placeholder="Buscar por nome ou categoria"
+                            autocomplete="off"
+                    />
+
+                </div>
+
+            </div>
+
+
+            <!-- ALERTAS -->
+
+            <div
+                    class="alert alert-danger"
+                    id="products-error"
+                    role="alert"
+            ></div>
+
+            <div
+                    class="alert alert-success"
+                    id="products-success"
+                    role="status"
+            ></div>
+
+
+            <!-- TABELA -->
+
+            <div class="table-scroll">
+
+                <table class="data-table">
+
+                    <thead>
+
+                    <tr>
+
+                        <th>Produto</th>
+
+                        <th>Categoria</th>
+
+                        <th class="num">
+                            Estoque
+                        </th>
+
+                        <th class="num">
+                            Mínimo
+                        </th>
+
+                        <th class="num">
+                            Preço
+                        </th>
+
+                        <th>Status</th>
+
+                        <th class="actions-col">
+                            Ações
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody id="products-body">
+
+                    <tr class="empty-row">
+
+                        <td colspan="7">
+                            Carregando…
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ========================================= -->
+<!-- MODAL: NOVO PRODUTO -->
+<!-- ========================================= -->
+
+<div
+        class="modal-backdrop"
+        id="product-modal"
+        aria-hidden="true"
+>
+
+    <div
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="product-modal-title"
+    >
+
+        <div class="modal-head">
+
+            <div>
+
+                <h2 id="product-modal-title">
+                    Novo produto
+                </h2>
+
+                <p>
+                    O estoque inicial será zero.
+                    Entradas são feitas por produção ou movimentação de estoque.
+                </p>
+
+            </div>
+
+            <button
+                    class="icon-btn"
+                    type="button"
+                    id="product-modal-close"
+                    aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+                class="alert alert-danger"
+                id="product-form-error"
+                role="alert"
+        ></div>
+
+
+        <form id="product-form">
+
+            <!-- NOME -->
+
+            <div class="field">
+
+                <label for="product-name">
+                    Nome
+                </label>
+
+                <input
+                        id="product-name"
+                        name="name"
+                        type="text"
+                        maxlength="255"
+                        required
+                        placeholder="Ex.: Lençol casal branco"
+                />
+
+            </div>
+
+
+            <!-- CATEGORIA / UNIDADE -->
+
+            <div class="form-grid two-columns">
+
+                <div class="field">
+
+                    <label for="product-category">
+                        Categoria
+                    </label>
+
+                    <select
+                            id="product-category"
+                            name="categoryId"
+                            required
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="product-unit">
+                        Unidade de medida
+                    </label>
+
+                    <select
+                            id="product-unit"
+                            name="unitId"
+                            required
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- PREÇO / ESTOQUE -->
+
+            <div class="form-grid two-columns">
+
+                <div class="field">
+
+                    <label for="product-price">
+                        Preço de venda
+                    </label>
+
+                    <input
+                            id="product-price"
+                            name="salePrice"
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                            inputmode="decimal"
+                            required
+                            placeholder="0,00"
+                    />
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="product-min-stock">
+
+                        Estoque mínimo
+
+                        <span class="field-optional">
+              (opcional)
+            </span>
+
+                    </label>
+
+                    <input
+                            id="product-min-stock"
+                            name="minimumStock"
+                            type="number"
+                            min="0"
+                            step="0.001"
+                            inputmode="decimal"
+                            placeholder="0"
+                    />
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTÕES -->
+
+            <div class="modal-actions">
+
+                <button
+                        class="btn btn-ghost"
+                        type="button"
+                        id="product-form-cancel"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                        class="btn btn-primary"
+                        type="submit"
+                        id="product-form-submit"
+                >
+                    Cadastrar produto
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================= -->
+<!-- MODAL: ALTERAR PREÇO -->
+<!-- ========================================= -->
+
+<div
+        class="modal-backdrop"
+        id="price-modal"
+        aria-hidden="true"
+>
+
+    <div
+            class="modal modal-small"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="price-modal-title"
+    >
+
+        <div class="modal-head">
+
+            <div>
+
+                <h2 id="price-modal-title">
+                    Alterar preço
+                </h2>
+
+                <p id="price-product-name"></p>
+
+            </div>
+
+            <button
+                    class="icon-btn"
+                    type="button"
+                    id="price-modal-close"
+                    aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+                class="alert alert-danger"
+                id="price-form-error"
+                role="alert"
+        ></div>
+
+
+        <form id="price-form">
+
+            <div class="field">
+
+                <label for="new-price">
+                    Novo preço de venda
+                </label>
+
+                <input
+                        id="new-price"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        inputmode="decimal"
+                        required
+                />
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                        class="btn btn-ghost"
+                        type="button"
+                        id="price-form-cancel"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                        class="btn btn-primary"
+                        type="submit"
+                        id="price-form-submit"
+                >
+                    Salvar preço
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/products.js"></script>
+
+</body>
+</html>
