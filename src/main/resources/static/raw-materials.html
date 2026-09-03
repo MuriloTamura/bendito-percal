@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Matérias-primas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+          rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- ============================================= -->
+  <!-- SIDEBAR -->
+  <!-- ============================================= -->
+
+  <aside class="sidebar">
+
+    <div class="brand-lockup">
+
+      <div class="brand-mark">
+        <span id="brand-initial">}{</span>
+      </div>
+
+      <div>
+
+        <strong id="brand-name">
+          Sistema de Gestão
+        </strong>
+
+        <small id="brand-tagline">
+          Gerencie sua empresa
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <ul class="sidebar-nav">
+
+      <li>
+        <a href="dashboard.html">
+          Dashboard
+        </a>
+      </li>
+
+      <li>
+        <a href="products.html">
+          Produtos
+        </a>
+      </li>
+
+      <li>
+        <a
+                href="raw-materials.html"
+                class="active"
+        >
+          Matérias-primas
+        </a>
+      </li>
+
+      <li>
+        <span
+                class="nav-disabled"
+                title="Em breve"
+        >
+          Produção
+        </span>
+      </li>
+
+      <li>
+        <span
+                class="nav-disabled"
+                title="Em breve"
+        >
+          Vendas
+        </span>
+      </li>
+
+      <li>
+        <span
+                class="nav-disabled"
+                title="Em breve"
+        >
+          Estoque
+        </span>
+      </li>
+
+      <li>
+        <a href="catalogs.html">
+          Cadastros
+        </a>
+      </li>
+
+    </ul>
+
+
+    <div class="sidebar-foot">
+
+      <div class="sidebar-user">
+
+        <strong id="user-name">
+          —
+        </strong>
+
+        <span id="user-role">
+          —
+        </span>
+
+      </div>
+
+
+      <button
+              class="btn btn-ghost btn-small"
+              id="logout-btn"
+              type="button"
+      >
+        Sair
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ============================================= -->
+  <!-- CONTEÚDO -->
+  <!-- ============================================= -->
+
+  <main class="main">
+
+    <div class="page-head page-head-actions">
+
+      <div>
+
+        <h1>
+          Matérias-primas
+        </h1>
+
+        <p class="page-subtitle">
+          Gerencie os insumos utilizados na produção
+        </p>
+
+      </div>
+
+
+      <button
+              class="btn btn-primary"
+              id="new-raw-material-btn"
+              type="button"
+      >
+        Nova matéria-prima
+      </button>
+
+    </div>
+
+
+    <hr class="fold-divider" />
+
+
+    <!-- ============================================= -->
+    <!-- INDICADORES -->
+    <!-- ============================================= -->
+
+    <section class="stat-grid compact-stats">
+
+      <div class="card stat-card">
+
+        <span class="stat-label">
+          Matérias-primas ativas
+        </span>
+
+        <span
+                class="stat-value skeleton"
+                id="raw-material-count"
+        >
+          …
+        </span>
+
+        <span class="stat-hint">
+          Insumos disponíveis para produção
+        </span>
+
+      </div>
+
+
+      <div class="card stat-card">
+
+        <span class="stat-label">
+          Estoque baixo
+        </span>
+
+        <span
+                class="stat-value skeleton"
+                id="low-stock-count"
+        >
+          …
+        </span>
+
+        <span class="stat-hint warn">
+          Itens no mínimo ou abaixo dele
+        </span>
+
+      </div>
+
+
+      <div class="card stat-card">
+
+        <span class="stat-label">
+          Sem estoque
+        </span>
+
+        <span
+                class="stat-value skeleton"
+                id="out-of-stock-count"
+        >
+          …
+        </span>
+
+        <span class="stat-hint warn">
+          Insumos com quantidade zerada
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <hr class="fold-divider" />
+
+
+    <!-- ============================================= -->
+    <!-- LISTA -->
+    <!-- ============================================= -->
+
+    <section class="card data-card">
+
+      <div class="table-toolbar">
+
+        <div>
+
+          <h2>
+            Lista de matérias-primas
+          </h2>
+
+          <p
+                  class="muted table-summary"
+                  id="raw-materials-summary"
+          >
+            Carregando matérias-primas…
+          </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+          <label
+                  class="visually-hidden"
+                  for="raw-material-search"
+          >
+            Buscar matéria-prima
+          </label>
+
+          <input
+                  id="raw-material-search"
+                  type="search"
+                  autocomplete="off"
+                  placeholder="Buscar por nome ou categoria"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- ALERTAS -->
+
+      <div
+              class="alert alert-danger"
+              id="raw-materials-error"
+              role="alert"
+      ></div>
+
+
+      <div
+              class="alert alert-success"
+              id="raw-materials-success"
+              role="status"
+      ></div>
+
+
+      <!-- AVISO -->
+
+      <div class="raw-material-info">
+
+        <strong>
+          Estoque
+        </strong>
+
+        <span>
+          Entradas e saídas de matérias-primas serão feitas
+          pela área de Estoque. O cadastro de uma nova
+          matéria-prima sempre começa com quantidade zero.
+        </span>
+
+      </div>
+
+
+      <!-- TABELA -->
+
+      <div class="table-scroll">
+
+        <table class="data-table">
+
+          <thead>
+
+          <tr>
+
+            <th>
+              Matéria-prima
+            </th>
+
+            <th>
+              Categoria
+            </th>
+
+            <th class="num">
+              Estoque
+            </th>
+
+            <th class="num">
+              Mínimo
+            </th>
+
+            <th>
+              Status
+            </th>
+
+            <th class="actions-col">
+              Ações
+            </th>
+
+          </tr>
+
+          </thead>
+
+
+          <tbody id="raw-materials-body">
+
+          <tr class="empty-row">
+
+            <td colspan="6">
+              Carregando…
+            </td>
+
+          </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- MODAL: NOVA MATÉRIA-PRIMA -->
+<!-- ================================================= -->
+
+<div
+        class="modal-backdrop"
+        id="raw-material-modal"
+        aria-hidden="true"
+>
+
+  <div
+          class="modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="raw-material-modal-title"
+  >
+
+    <div class="modal-head">
+
+      <div>
+
+        <h2 id="raw-material-modal-title">
+          Nova matéria-prima
+        </h2>
+
+        <p>
+          O estoque inicial será zero.
+          Use movimentações de estoque para registrar entradas.
+        </p>
+
+      </div>
+
+
+      <button
+              class="icon-btn"
+              id="raw-material-modal-close"
+              type="button"
+              aria-label="Fechar"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+            class="alert alert-danger"
+            id="raw-material-form-error"
+            role="alert"
+    ></div>
+
+
+    <form id="raw-material-form">
+
+      <!-- NOME -->
+
+      <div class="field">
+
+        <label for="raw-material-name">
+          Nome
+        </label>
+
+        <input
+                id="raw-material-name"
+                name="name"
+                type="text"
+                required
+                autocomplete="off"
+                placeholder="Ex.: Tecido Percal 200 fios"
+        />
+
+      </div>
+
+
+      <!-- CATEGORIA / UNIDADE -->
+
+      <div class="form-grid two-columns">
+
+        <div class="field">
+
+          <label for="raw-material-category">
+            Categoria
+          </label>
+
+          <select
+                  id="raw-material-category"
+                  name="categoryId"
+                  required
+          >
+
+            <option value="">
+              Selecione
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+          <label for="raw-material-unit">
+            Unidade de medida
+          </label>
+          <select
+                  id="raw-material-unit"
+                  name="unitId"
+                  required
+          >
+            <option value="">
+              Selecione
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ESTOQUE MÍNIMO -->
+      <div class="field">
+        <label for="raw-material-min-stock">
+          Estoque mínimo
+          <span class="field-optional">
+            (opcional)
+          </span>
+        </label>
+        <input
+                id="raw-material-min-stock"
+                name="minimumStock"
+                type="number"
+                min="0"
+                step="0.001"
+                inputmode="decimal"
+                placeholder="Ex.: 20"
+        />
+        <small class="field-help">
+          Quando a quantidade atingir esse valor,
+          o item será sinalizado como estoque baixo.
+        </small>
+      </div>
+
+      <!-- BOTÕES -->
+      <div class="modal-actions">
+        <button
+                class="btn btn-ghost"
+                id="raw-material-form-cancel"
+                type="button"
+        >
+          Cancelar
+        </button>
+        <button
+                class="btn btn-primary"
+                id="raw-material-form-submit"
+                type="submit"
+        >
+          Cadastrar matéria-prima
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/raw-materials.js"></script>
+
+</body>
+</html>
