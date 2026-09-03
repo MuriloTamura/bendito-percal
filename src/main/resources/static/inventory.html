@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8"/>
+  <title>Estoque</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+  <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+          rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/theme.css"/>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="brand-lockup">
+
+      <div class="brand-mark">
+        <span id="brand-initial">}{</span>
+      </div>
+
+      <div>
+        <strong id="brand-name">
+          Sistema de Gestão
+        </strong>
+
+        <small id="brand-tagline">
+          Gerencie sua empresa
+        </small>
+      </div>
+
+    </div>
+
+
+    <ul class="sidebar-nav">
+
+      <li>
+        <a href="dashboard.html">
+          Dashboard
+        </a>
+      </li>
+
+      <li>
+        <a href="products.html">
+          Produtos
+        </a>
+      </li>
+
+      <li>
+        <a href="raw-materials.html">
+          Matérias-primas
+        </a>
+      </li>
+
+      <li>
+        <span class="nav-disabled">
+          Produção
+        </span>
+      </li>
+
+      <li>
+        <span class="nav-disabled">
+          Vendas
+        </span>
+      </li>
+
+      <li>
+        <a
+                href="inventory.html"
+                class="active"
+        >
+          Estoque
+        </a>
+      </li>
+
+      <li>
+        <a href="catalogs.html">
+          Cadastros
+        </a>
+      </li>
+
+    </ul>
+
+
+    <div class="sidebar-foot">
+
+      <div class="sidebar-user">
+
+        <strong id="user-name">
+          —
+        </strong>
+
+        <span id="user-role">
+          —
+        </span>
+
+      </div>
+
+      <button
+              class="btn btn-ghost btn-small"
+              id="logout-btn"
+              type="button"
+      >
+        Sair
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- CONTEÚDO -->
+
+  <main class="main">
+
+    <div class="page-head page-head-actions">
+
+      <div>
+
+        <h1>
+          Estoque
+        </h1>
+
+        <p class="page-subtitle">
+          Acompanhe entradas, saídas e ajustes de estoque
+        </p>
+
+      </div>
+
+
+      <button
+              class="btn btn-primary"
+              id="new-movement-btn"
+              type="button"
+      >
+        Nova movimentação
+      </button>
+
+    </div>
+
+
+    <hr class="fold-divider"/>
+
+
+    <!-- CARDS -->
+
+    <section class="stat-grid compact-stats">
+
+      <div class="card stat-card">
+
+        <span class="stat-label">
+          Movimentações
+        </span>
+
+        <span
+                class="stat-value skeleton"
+                id="movements-count"
+        >
+          …
+        </span>
+
+        <span class="stat-hint">
+          Histórico registrado
+        </span>
+
+      </div>
+
+
+      <div class="card stat-card">
+
+        <span class="stat-label">
+          Entradas hoje
+        </span>
+
+        <span
+                class="stat-value skeleton"
+                id="entries-today"
+        >
+          …
+        </span>
+
+        <span class="stat-hint">
+          Movimentações de entrada
+        </span>
+
+      </div>
+
+
+      <div class="card stat-card">
+
+        <span class="stat-label">
+          Saídas hoje
+        </span>
+
+        <span
+                class="stat-value skeleton"
+                id="exits-today"
+        >
+          …
+        </span>
+
+        <span class="stat-hint">
+          Movimentações de saída
+        </span>
+
+      </div>
+
+
+      <div class="card stat-card">
+
+        <span class="stat-label">
+          Estoque baixo
+        </span>
+
+        <span
+                class="stat-value skeleton"
+                id="low-stock-count"
+        >
+          …
+        </span>
+
+        <span class="stat-hint warn">
+          Produtos e insumos abaixo do mínimo
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <hr class="fold-divider"/>
+
+
+    <!-- HISTÓRICO -->
+
+    <section class="card data-card">
+
+      <div class="table-toolbar inventory-toolbar">
+
+        <div>
+
+          <h2>
+            Histórico de movimentações
+          </h2>
+
+          <p
+                  class="muted table-summary"
+                  id="movements-summary"
+          >
+            Carregando histórico…
+          </p>
+
+        </div>
+
+
+        <div class="inventory-filters">
+
+          <select
+                  id="item-type-filter"
+                  aria-label="Filtrar por tipo de item"
+          >
+
+            <option value="">
+              Todos os itens
+            </option>
+
+            <option value="PRODUCT">
+              Produtos
+            </option>
+
+            <option value="RAW_MATERIAL">
+              Matérias-primas
+            </option>
+
+          </select>
+
+
+          <select
+                  id="movement-type-filter"
+                  aria-label="Filtrar por movimentação"
+          >
+
+            <option value="">
+              Entradas e saídas
+            </option>
+
+            <option value="ENTRY">
+              Entradas
+            </option>
+
+            <option value="EXIT">
+              Saídas
+            </option>
+
+          </select>
+
+
+          <input
+                  id="movement-search"
+                  type="search"
+                  placeholder="Buscar item ou motivo"
+                  autocomplete="off"
+                  aria-label="Buscar movimentação"
+          />
+
+        </div>
+
+      </div>
+
+
+      <div
+              class="alert alert-danger"
+              id="inventory-error"
+              role="alert"
+      ></div>
+
+
+      <div
+              class="alert alert-success"
+              id="inventory-success"
+              role="status"
+      ></div>
+
+
+      <div class="inventory-info">
+
+        <strong>
+          Movimentações manuais
+        </strong>
+
+        <span>
+          Use esta área para compras, perdas, quebras ou
+          ajustes de inventário. Vendas e produções registram
+          suas movimentações automaticamente.
+        </span>
+
+      </div>
+
+
+      <div class="table-scroll">
+
+        <table class="data-table">
+
+          <thead>
+
+          <tr>
+
+            <th>
+              Data
+            </th>
+
+            <th>
+              Item
+            </th>
+
+            <th>
+              Tipo
+            </th>
+
+            <th>
+              Movimento
+            </th>
+
+            <th class="num">
+              Quantidade
+            </th>
+
+            <th>
+              Motivo
+            </th>
+
+            <th class="num">
+              Saldo
+            </th>
+
+          </tr>
+
+          </thead>
+
+
+          <tbody id="movements-body">
+
+          <tr class="empty-row">
+
+            <td colspan="7">
+              Carregando…
+            </td>
+
+          </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- MODAL: MOVIMENTAÇÃO -->
+<!-- ================================================= -->
+
+<div
+        class="modal-backdrop"
+        id="movement-modal"
+        aria-hidden="true"
+>
+
+  <div
+          class="modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="movement-modal-title"
+  >
+
+    <div class="modal-head">
+
+      <div>
+
+        <h2 id="movement-modal-title">
+          Nova movimentação
+        </h2>
+
+        <p>
+          Registre uma entrada ou saída manual de estoque.
+        </p>
+
+      </div>
+
+
+      <button
+              class="icon-btn"
+              id="movement-modal-close"
+              type="button"
+              aria-label="Fechar"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+            class="alert alert-danger"
+            id="movement-form-error"
+            role="alert"
+    ></div>
+
+
+    <form id="movement-form">
+
+
+      <!-- TIPO DO ITEM -->
+
+      <div class="field">
+
+        <label for="movement-item-type">
+          Tipo de item
+        </label>
+
+        <select
+                id="movement-item-type"
+                required
+        >
+
+          <option value="">
+            Selecione
+          </option>
+
+          <option value="PRODUCT">
+            Produto
+          </option>
+
+          <option value="RAW_MATERIAL">
+            Matéria-prima
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- ITEM -->
+
+      <div class="field">
+
+        <label for="movement-item">
+          Item
+        </label>
+
+        <select
+                id="movement-item"
+                required
+                disabled
+        >
+
+          <option value="">
+            Primeiro selecione o tipo
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- SALDO ATUAL -->
+
+      <div
+              class="stock-preview"
+              id="stock-preview"
+              hidden
+      >
+
+        <div>
+
+          <span class="stock-preview-label">
+            Saldo atual
+          </span>
+
+          <strong id="current-stock">
+            —
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span class="stock-preview-label">
+            Estoque mínimo
+          </span>
+
+          <strong id="minimum-stock">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- MOVIMENTO / QUANTIDADE -->
+
+      <div class="form-grid two-columns">
+
+        <div class="field">
+
+          <label for="movement-type">
+            Movimento
+          </label>
+
+          <select
+                  id="movement-type"
+                  required
+          >
+
+            <option value="">
+              Selecione
+            </option>
+
+            <option value="ENTRY">
+              Entrada
+            </option>
+
+            <option value="EXIT">
+              Saída
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="movement-quantity">
+            Quantidade
+          </label>
+
+          <input
+                  id="movement-quantity"
+                  type="number"
+                  min="0.001"
+                  step="0.001"
+                  inputmode="decimal"
+                  required
+                  placeholder="0"
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- MOTIVO -->
+
+      <div class="field">
+
+        <label for="movement-reason">
+          Motivo
+        </label>
+
+        <input
+                id="movement-reason"
+                type="text"
+                maxlength="255"
+                required
+                autocomplete="off"
+                placeholder="Ex.: Compra de tecido do fornecedor"
+        />
+
+        <small class="field-help">
+          Informe por que essa movimentação está sendo feita.
+        </small>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+                class="btn btn-ghost"
+                id="movement-form-cancel"
+                type="button"
+        >
+          Cancelar
+        </button>
+
+
+        <button
+                class="btn btn-primary"
+                id="movement-form-submit"
+                type="submit"
+        >
+          Registrar movimentação
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/inventory.js"></script>
+
+</body>
+</html>
