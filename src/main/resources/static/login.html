@@ -1,49 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <title>Entrar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="css/theme.css" />
-  <link rel="stylesheet" href="css/app.css" />
-</head>
-<body>
-  <div class="login-shell">
-    <div class="login-card">
-      <div class="login-brand">
-        <div class="brand-mark"><span id="brand-initial">}{</span></div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Acesso ao sistema de gestão">
+    <title>Entrar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body class="login-page">
+    <main class="login-shell">
+      <section class="login-panel" aria-labelledby="login-title">
+        <div class="login-brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span data-brand-short>SG</span>
+          </div>
+          <div>
+            <strong data-brand-name>Sistema de Gestão</strong><span data-brand-tagline>Operação e controle</span>
+          </div>
+        </div>
+        <header class="login-heading">
+          <p class="eyebrow">Área administrativa</p>
+          <h1 id="login-title">Bem-vindo de volta.</h1>
+          <p>Entre com seus dados para acessar a operação.</p>
+        </header>
+        <div class="alert alert-danger" id="login-error" role="alert" aria-live="polite"></div>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="username" inputmode="email" required autofocus>
+          </div>
+          <div class="field">
+            <label for="password">Senha</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="btn btn-primary btn-block" id="login-submit" type="submit">Entrar</button>
+        </form>
+        <p class="login-foot">Acesso restrito à equipe autorizada.</p>
+      </section>
+      <aside class="login-context" aria-hidden="true">
         <div>
-          <h1 id="brand-name">Sistema de Gestão</h1>
-          <p id="brand-tagline">Gerencie sua emprea</p>
+          <span class="context-index">01 / Gestão</span>
+          <p>Produtos, estoque, produção e vendas reunidos em uma operação clara.</p>
         </div>
-      </div>
-
-      <div class="alert alert-danger" id="login-error" role="alert"></div>
-
-      <form id="login-form" novalidate>
-        <div class="field">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" autocomplete="username" required />
-        </div>
-        <div class="field">
-          <label for="password">Senha</label>
-          <input type="password" id="password" name="password" autocomplete="current-password" required />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" id="login-submit">Entrar</button>
-      </form>
-
-      <p class="login-foot">Acesso restrito à equipe. Fale com o administrador em caso de dúvida.</p>
-    </div>
-  </div>
-
-  <script src="js/config.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/auth.js"></script>
-</body>
+      </aside>
+    </main>
+    <script src="js/core/config.js"></script>
+    <script src="js/core/api.js"></script>
+    <script src="js/core/auth.js"></script>
+    <script src="js/pages/login.js"></script>
+  </body>
 </html>

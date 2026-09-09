@@ -1,13 +1,17 @@
 (function () {
-  const cfg = window.APP_CONFIG || {};
+  const { escapeHtml } = ui;
 
-  document.getElementById("brand-name").textContent = cfg.companyName || "Sistema de Gestão";
-  document.getElementById("brand-tagline").textContent = cfg.companyTagline || "";
-  document.getElementById("brand-initial").textContent = (cfg.companyName || "S").trim().charAt(0).toUpperCase();
-
-  const currencyFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+  const currencyFmt = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
   const numberFmt = new Intl.NumberFormat("pt-BR");
-  const dateTimeFmt = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+  const dateTimeFmt = new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   const weekdayFmt = new Intl.DateTimeFormat("pt-BR", { weekday: "short" });
 
   function setText(field, value) {
@@ -15,23 +19,6 @@
       el.textContent = value;
       el.classList.remove("skeleton");
     });
-  }
-
-  function escapeHtml(str) {
-    const div = document.createElement("div");
-    div.textContent = str ?? "";
-    return div.innerHTML;
-  }
-
-  async function loadUser() {
-    try {
-      const user = await api.get("/api/v1/auth/me");
-      document.getElementById("user-name").textContent = user.name;
-      document.getElementById("user-role").textContent = user.role === "ADMIN" ? "Administrador" : "Operador";
-    } catch (err) {
-      // Sem sessão válida — volta para o login
-      window.location.replace("login.html");
-    }
   }
 
   function renderRecentSales(sales) {
@@ -47,7 +34,7 @@
           <td>${escapeHtml(sale.customerName || "Cliente não informado")}</td>
           <td class="num">${currencyFmt.format(sale.totalAmount)}</td>
           <td>${dateTimeFmt.format(new Date(sale.createdAt))}</td>
-        </tr>`
+        </tr>`,
       )
       .join("");
   }
@@ -63,7 +50,7 @@
         const typeLabel = item.itemType === "PRODUCT" ? "Produto" : "Matéria-prima";
         return `
         <tr>
-          <td>${escapeHtml(item.name)}<br><span class="muted" style="font-size:11px;">${typeLabel}</span></td>
+          <td>${escapeHtml(item.name)}<br><span class="table-secondary">${typeLabel}</span></td>
           <td class="num">${numberFmt.format(item.quantityInStock)} ${escapeHtml(item.unit || "")}</td>
           <td><span class="badge low">baixo</span></td>
         </tr>`;
@@ -83,7 +70,7 @@
         <tr>
           <td>${escapeHtml(item.productName)}</td>
           <td class="num">${numberFmt.format(item.quantitySold)}</td>
-        </tr>`
+        </tr>`,
       )
       .join("");
   }
@@ -128,31 +115,20 @@
       setText("active-products-hint", `${data.inventory.lowStockProducts} com estoque baixo`);
       setText("active-raw", numberFmt.format(data.inventory.activeRawMaterials));
       setText("active-raw-hint", `${data.inventory.lowStockRawMaterials} com estoque baixo`);
-      setText("low-stock-total", numberFmt.format(data.inventory.lowStockProducts + data.inventory.lowStockRawMaterials));
+      setText(
+        "low-stock-total",
+        numberFmt.format(data.inventory.lowStockProducts + data.inventory.lowStockRawMaterials),
+      );
 
       renderRecentSales(data.recentSales);
       renderLowStock(data.lowStockItems);
       renderTopProducts(data.topProductsLastThirtyDays);
       renderWeekChart(data.salesLastSevenDays);
     } catch (err) {
-      if (err.status === 401) {
-        window.location.replace("login.html");
-        return;
-      }
       document.getElementById("recent-sales-body").innerHTML =
         `<tr class="empty-row"><td colspan="3">Não foi possível carregar os dados: ${escapeHtml(err.message)}</td></tr>`;
     }
   }
 
-  document.getElementById("logout-btn").addEventListener("click", async () => {
-    try {
-      await api.post("/api/v1/auth/logout");
-    } catch (err) {
-      // mesmo se a chamada falhar, ainda mandamos para o login
-    }
-    window.location.replace("login.html");
-  });
-
-  loadUser();
-  loadDashboard();
+  auth.requireUser().then(loadDashboard);
 })();

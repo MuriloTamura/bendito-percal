@@ -1,759 +1,282 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-  <meta charset="utf-8"/>
-  <title>Vendas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-
-  <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
-          rel="stylesheet"
-  />
-
-  <link rel="stylesheet" href="css/theme.css"/>
-  <link rel="stylesheet" href="css/app.css"/>
-</head>
-
-<body>
-
-<div class="app-shell">
-
-  <!-- ============================================= -->
-  <!-- SIDEBAR -->
-  <!-- ============================================= -->
-
-  <aside class="sidebar">
-
-    <div class="brand-lockup">
-
-      <div class="brand-mark">
-        <span id="brand-initial">}{</span>
-      </div>
-
-      <div>
-        <strong id="brand-name">
-          Sistema de Gestão
-        </strong>
-
-        <small id="brand-tagline">
-          Gerencie sua empresa
-        </small>
-      </div>
-
-    </div>
-
-
-    <ul class="sidebar-nav">
-
-      <li>
-        <a href="dashboard.html">
-          Dashboard
-        </a>
-      </li>
-
-      <li>
-        <a href="products.html">
-          Produtos
-        </a>
-      </li>
-
-      <li>
-        <a href="raw-materials.html">
-          Matérias-primas
-        </a>
-      </li>
-
-      <li>
-        <a href="production.html">
-          Produção
-        </a>
-      </li>
-
-      <li>
-        <a
-                href="sales.html"
-                class="active"
-        >
-          Vendas
-        </a>
-      </li>
-
-      <li>
-        <a href="inventory.html">
-          Estoque
-        </a>
-      </li>
-
-      <li>
-        <a href="catalogs.html">
-          Cadastros
-        </a>
-      </li>
-
-    </ul>
-
-
-    <div class="sidebar-foot">
-
-      <div class="sidebar-user">
-
-        <strong id="user-name">
-          —
-        </strong>
-
-        <span id="user-role">
-          —
-        </span>
-
-      </div>
-
-      <button
-              class="btn btn-ghost btn-small"
-              id="logout-btn"
-              type="button"
-      >
-        Sair
-      </button>
-
-    </div>
-
-  </aside>
-
-
-  <!-- ============================================= -->
-  <!-- CONTEÚDO -->
-  <!-- ============================================= -->
-
-  <main class="main">
-
-    <div class="page-head page-head-actions">
-
-      <div>
-
-        <h1>
-          Vendas
-        </h1>
-
-        <p class="page-subtitle">
-          Registre vendas e acompanhe o histórico comercial
-        </p>
-
-      </div>
-
-
-      <button
-              class="btn btn-primary"
-              id="new-sale-btn"
-              type="button"
-      >
-        Nova venda
-      </button>
-
-    </div>
-
-
-    <hr class="fold-divider"/>
-
-
-    <!-- ============================================= -->
-    <!-- INDICADORES -->
-    <!-- ============================================= -->
-
-    <section class="stat-grid compact-stats">
-
-      <div class="card stat-card">
-
-        <span class="stat-label">
-          Vendas registradas
-        </span>
-
-        <span
-                class="stat-value skeleton"
-                id="sales-count"
-        >
-          …
-        </span>
-
-        <span class="stat-hint">
-          Total no histórico
-        </span>
-
-      </div>
-
-
-      <div class="card stat-card">
-
-        <span class="stat-label">
-          Vendas hoje
-        </span>
-
-        <span
-                class="stat-value skeleton"
-                id="sales-today"
-        >
-          …
-        </span>
-
-        <span class="stat-hint">
-          Pedidos registrados hoje
-        </span>
-
-      </div>
-
-
-      <div class="card stat-card">
-
-        <span class="stat-label">
-          Faturamento hoje
-        </span>
-
-        <span
-                class="stat-value stat-value-money skeleton"
-                id="revenue-today"
-        >
-          …
-        </span>
-
-        <span class="stat-hint">
-          Total vendido no dia
-        </span>
-
-      </div>
-
-
-      <div class="card stat-card">
-
-        <span class="stat-label">
-          Ticket médio
-        </span>
-
-        <span
-                class="stat-value stat-value-money skeleton"
-                id="average-ticket"
-        >
-          …
-        </span>
-
-        <span class="stat-hint">
-          Média das vendas de hoje
-        </span>
-
-      </div>
-
-    </section>
-
-
-    <hr class="fold-divider"/>
-
-
-    <!-- ============================================= -->
-    <!-- HISTÓRICO -->
-    <!-- ============================================= -->
-
-    <section class="card data-card">
-
-      <div class="table-toolbar">
-
-        <div>
-
-          <h2>
-            Histórico de vendas
-          </h2>
-
-          <p
-                  class="muted table-summary"
-                  id="sales-summary"
-          >
-            Carregando vendas…
-          </p>
-
+  <head>
+    <meta charset="utf-8">
+    <title>Vendas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+
+  <body data-page="sales">
+    <div class="app-shell">
+      <aside class="sidebar" id="app-sidebar" aria-label="Menu da aplicação"></aside>
+
+      <main class="main">
+        <div class="page-head page-head-actions">
+          <div>
+            <h1>Vendas</h1>
+
+            <p class="page-subtitle">Registre vendas e acompanhe o histórico comercial</p>
+          </div>
+
+          <button class="btn btn-primary" id="new-sale-btn" type="button">Nova venda</button>
         </div>
 
+        <hr class="fold-divider">
 
-        <div class="search-box">
+        <section class="stat-grid compact-stats">
+          <div class="card stat-card">
+            <span class="stat-label">Vendas registradas</span>
 
-          <label
-                  class="visually-hidden"
-                  for="sale-search"
-          >
-            Buscar venda
-          </label>
+            <span class="stat-value skeleton" id="sales-count">…</span>
 
-          <input
-                  id="sale-search"
-                  type="search"
-                  autocomplete="off"
-                  placeholder="Buscar cliente ou produto"
-          />
+            <span class="stat-hint">Total no histórico</span>
+          </div>
 
+          <div class="card stat-card">
+            <span class="stat-label">Vendas hoje</span>
+
+            <span class="stat-value skeleton" id="sales-today">…</span>
+
+            <span class="stat-hint">Pedidos registrados hoje</span>
+          </div>
+
+          <div class="card stat-card">
+            <span class="stat-label">Faturamento hoje</span>
+
+            <span class="stat-value stat-value-money skeleton" id="revenue-today">…</span>
+
+            <span class="stat-hint">Total vendido no dia</span>
+          </div>
+
+          <div class="card stat-card">
+            <span class="stat-label">Ticket médio</span>
+
+            <span class="stat-value stat-value-money skeleton" id="average-ticket">…</span>
+
+            <span class="stat-hint">Média das vendas de hoje</span>
+          </div>
+        </section>
+
+        <hr class="fold-divider">
+
+        <section class="card data-card">
+          <div class="table-toolbar">
+            <div>
+              <h2>Histórico de vendas</h2>
+
+              <p class="muted table-summary" id="sales-summary">Carregando vendas…</p>
+            </div>
+
+            <div class="search-box">
+              <label class="visually-hidden" for="sale-search">Buscar venda</label>
+
+              <input id="sale-search" type="search" autocomplete="off" placeholder="Buscar cliente ou produto">
+            </div>
+          </div>
+
+          <div class="alert alert-danger" id="sales-error" role="alert"></div>
+
+          <div class="alert alert-success" id="sales-success" role="status"></div>
+
+          <div class="sales-info">
+            <strong> Baixa automática </strong>
+
+            <span>Ao registrar uma venda, o estoque dos produtos é atualizado automaticamente e a movimentação fica
+              registrada no histórico de estoque.</span>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Data</th>
+
+                  <th scope="col">Cliente</th>
+
+                  <th scope="col">Produtos</th>
+
+                  <th scope="col" class="num">Total</th>
+
+                  <th scope="col">Status</th>
+
+                  <th scope="col" class="actions-col">Ações</th>
+                </tr>
+              </thead>
+
+              <tbody id="sales-body">
+                <tr class="empty-row">
+                  <td colspan="6">Carregando…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="sale-modal" aria-hidden="true" inert>
+      <div class="modal sale-modal" role="dialog" aria-modal="true" aria-labelledby="sale-modal-title">
+        <div class="modal-head">
+          <div>
+            <h2 id="sale-modal-title">Nova venda</h2>
+
+            <p>Selecione os produtos e informe as quantidades vendidas.</p>
+          </div>
+
+          <button class="icon-btn" id="sale-modal-close" type="button" aria-label="Fechar">×</button>
         </div>
 
-      </div>
+        <div class="alert alert-danger" id="sale-form-error" role="alert"></div>
 
-
-      <div
-              class="alert alert-danger"
-              id="sales-error"
-              role="alert"
-      ></div>
-
-
-      <div
-              class="alert alert-success"
-              id="sales-success"
-              role="status"
-      ></div>
-
-
-      <div class="sales-info">
-
-        <strong>
-          Baixa automática
-        </strong>
-
-        <span>
-          Ao registrar uma venda, o estoque dos produtos
-          é atualizado automaticamente e a movimentação
-          fica registrada no histórico de estoque.
-        </span>
-
-      </div>
-
-
-      <div class="table-scroll">
-
-        <table class="data-table">
-
-          <thead>
-
-          <tr>
-
-            <th>
-              Data
-            </th>
-
-            <th>
+        <form id="sale-form">
+          <div class="field">
+            <label for="sale-customer">
               Cliente
-            </th>
 
-            <th>
-              Produtos
-            </th>
+              <span class="field-optional">(opcional)</span>
+            </label>
 
-            <th class="num">
-              Total
-            </th>
+            <input
+              id="sale-customer"
+              type="text"
+              maxlength="150"
+              autocomplete="off"
+              placeholder="Ex.: Maria da Silva">
 
-            <th>
-              Status
-            </th>
+            <small class="field-help"> Você pode deixar em branco para vendas sem identificação. </small>
+          </div>
 
-            <th class="actions-col">
-              Ações
-            </th>
+          <hr class="production-divider">
 
-          </tr>
+          <div class="sale-items-head">
+            <div>
+              <h3>Produtos</h3>
 
-          </thead>
+              <p>Adicione um ou mais produtos à venda.</p>
+            </div>
 
+            <button class="btn btn-ghost btn-small" id="add-sale-item-btn" type="button">Adicionar produto</button>
+          </div>
 
-          <tbody id="sales-body">
+          <div class="sale-items-list" id="sale-items"></div>
 
-          <tr class="empty-row">
+          <div class="sale-total-box">
+            <div>
+              <span>Itens da venda</span>
 
-            <td colspan="6">
-              Carregando…
-            </td>
+              <strong id="sale-items-count"> 0 </strong>
+            </div>
 
-          </tr>
+            <div class="sale-total-value">
+              <span>Total estimado</span>
 
-          </tbody>
+              <strong id="sale-total"> R$ 0,00 </strong>
+            </div>
+          </div>
 
-        </table>
+          <div class="production-atomic-warning">
+            <strong> Importante: </strong>
 
+            se qualquer produto estiver sem estoque suficiente, a venda inteira será cancelada e nenhum estoque será
+            alterado.
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn btn-ghost" id="sale-form-cancel" type="button">Cancelar</button>
+
+            <button class="btn btn-primary" id="sale-form-submit" type="submit">Finalizar venda</button>
+          </div>
+        </form>
       </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- MODAL: NOVA VENDA -->
-<!-- ================================================= -->
-
-<div
-        class="modal-backdrop"
-        id="sale-modal"
-        aria-hidden="true"
->
-
-  <div
-          class="modal sale-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="sale-modal-title"
-  >
-
-    <div class="modal-head">
-
-      <div>
-
-        <h2 id="sale-modal-title">
-          Nova venda
-        </h2>
-
-        <p>
-          Selecione os produtos e informe as quantidades vendidas.
-        </p>
-
-      </div>
-
-
-      <button
-              class="icon-btn"
-              id="sale-modal-close"
-              type="button"
-              aria-label="Fechar"
-      >
-        ×
-      </button>
-
     </div>
 
+    <div class="modal-backdrop" id="sale-details-modal" aria-hidden="true" inert>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="sale-details-title">
+        <div class="modal-head">
+          <div>
+            <h2 id="sale-details-title">Detalhes da venda</h2>
 
-    <div
-            class="alert alert-danger"
-            id="sale-form-error"
-            role="alert"
-    ></div>
+            <p id="sale-details-code">—</p>
+          </div>
 
-
-    <form id="sale-form">
-
-
-      <!-- CLIENTE -->
-
-      <div class="field">
-
-        <label for="sale-customer">
-
-          Cliente
-
-          <span class="field-optional">
-            (opcional)
-          </span>
-
-        </label>
-
-        <input
-                id="sale-customer"
-                type="text"
-                maxlength="150"
-                autocomplete="off"
-                placeholder="Ex.: Maria da Silva"
-        />
-
-        <small class="field-help">
-          Você pode deixar em branco para vendas sem identificação.
-        </small>
-
-      </div>
-
-
-      <hr class="production-divider"/>
-
-
-      <!-- PRODUTOS -->
-
-      <div class="sale-items-head">
-
-        <div>
-
-          <h3>
-            Produtos
-          </h3>
-
-          <p>
-            Adicione um ou mais produtos à venda.
-          </p>
-
+          <button class="icon-btn" id="sale-details-close" type="button" aria-label="Fechar">×</button>
         </div>
 
+        <div class="sale-details-grid">
+          <div class="production-detail">
+            <span>Cliente</span>
 
-        <button
-                class="btn btn-ghost btn-small"
-                id="add-sale-item-btn"
-                type="button"
-        >
-          Adicionar produto
-        </button>
+            <strong id="details-customer"> — </strong>
+          </div>
 
-      </div>
+          <div class="production-detail">
+            <span>Data</span>
 
+            <strong id="details-date"> — </strong>
+          </div>
 
-      <div
-              class="sale-items-list"
-              id="sale-items"
-      ></div>
+          <div class="production-detail">
+            <span>Status</span>
 
+            <strong id="details-status"> — </strong>
+          </div>
 
-      <!-- TOTAL -->
+          <div class="production-detail">
+            <span>Total</span>
 
-      <div class="sale-total-box">
-
-        <div>
-
-          <span>
-            Itens da venda
-          </span>
-
-          <strong id="sale-items-count">
-            0
-          </strong>
-
+            <strong id="details-total"> — </strong>
+          </div>
         </div>
 
+        <div class="sale-details-products">
+          <h3>Produtos vendidos</h3>
 
-        <div class="sale-total-value">
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Produto</th>
 
-          <span>
-            Total estimado
-          </span>
+                  <th scope="col" class="num">Quantidade</th>
 
-          <strong id="sale-total">
-            R$ 0,00
-          </strong>
+                  <th scope="col" class="num">Preço unitário</th>
 
+                  <th scope="col" class="num">Subtotal</th>
+                </tr>
+              </thead>
+
+              <tbody id="details-items-body"></tbody>
+            </table>
+          </div>
         </div>
 
+        <div class="sale-details-total">
+          <span>Total da venda</span>
+
+          <strong id="details-total-footer"> R$ 0,00 </strong>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="sale-details-ok" type="button">Fechar</button>
+        </div>
       </div>
-
-
-      <div class="production-atomic-warning">
-
-        <strong>
-          Importante:
-        </strong>
-
-        se qualquer produto estiver sem estoque suficiente,
-        a venda inteira será cancelada e nenhum estoque será alterado.
-
-      </div>
-
-
-      <div class="modal-actions">
-
-        <button
-                class="btn btn-ghost"
-                id="sale-form-cancel"
-                type="button"
-        >
-          Cancelar
-        </button>
-
-
-        <button
-                class="btn btn-primary"
-                id="sale-form-submit"
-                type="submit"
-        >
-          Finalizar venda
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- MODAL: DETALHES DA VENDA -->
-<!-- ================================================= -->
-
-<div
-        class="modal-backdrop"
-        id="sale-details-modal"
-        aria-hidden="true"
->
-
-  <div
-          class="modal"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="sale-details-title"
-  >
-
-    <div class="modal-head">
-
-      <div>
-
-        <h2 id="sale-details-title">
-          Detalhes da venda
-        </h2>
-
-        <p id="sale-details-code">
-          —
-        </p>
-
-      </div>
-
-
-      <button
-              class="icon-btn"
-              id="sale-details-close"
-              type="button"
-              aria-label="Fechar"
-      >
-        ×
-      </button>
-
     </div>
 
-
-    <div class="sale-details-grid">
-
-      <div class="production-detail">
-
-        <span>
-          Cliente
-        </span>
-
-        <strong id="details-customer">
-          —
-        </strong>
-
-      </div>
-
-
-      <div class="production-detail">
-
-        <span>
-          Data
-        </span>
-
-        <strong id="details-date">
-          —
-        </strong>
-
-      </div>
-
-
-      <div class="production-detail">
-
-        <span>
-          Status
-        </span>
-
-        <strong id="details-status">
-          —
-        </strong>
-
-      </div>
-
-
-      <div class="production-detail">
-
-        <span>
-          Total
-        </span>
-
-        <strong id="details-total">
-          —
-        </strong>
-
-      </div>
-
-    </div>
-
-
-    <div class="sale-details-products">
-
-      <h3>
-        Produtos vendidos
-      </h3>
-
-
-      <div class="table-scroll">
-
-        <table class="data-table">
-
-          <thead>
-
-          <tr>
-
-            <th>
-              Produto
-            </th>
-
-            <th class="num">
-              Quantidade
-            </th>
-
-            <th class="num">
-              Preço unitário
-            </th>
-
-            <th class="num">
-              Subtotal
-            </th>
-
-          </tr>
-
-          </thead>
-
-
-          <tbody id="details-items-body"></tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-
-    <div class="sale-details-total">
-
-      <span>
-        Total da venda
-      </span>
-
-      <strong id="details-total-footer">
-        R$ 0,00
-      </strong>
-
-    </div>
-
-
-    <div class="modal-actions">
-
-      <button
-              class="btn btn-primary"
-              id="sale-details-ok"
-              type="button"
-      >
-        Fechar
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<script src="js/config.js"></script>
-<script src="js/api.js"></script>
-<script src="js/sales.js"></script>
-
-</body>
+    <script src="js/core/config.js"></script>
+    <script src="js/core/api.js"></script>
+    <script src="js/core/auth.js"></script>
+    <script src="js/core/ui.js"></script>
+    <script src="js/core/layout.js"></script>
+    <script src="js/pages/sales.js"></script>
+  </body>
 </html>
