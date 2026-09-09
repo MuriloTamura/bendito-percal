@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Produção</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+            rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/theme.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- ================================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand-lockup">
+
+            <div class="brand-mark">
+                <span id="brand-initial">}{</span>
+            </div>
+
+            <div>
+
+                <strong id="brand-name">
+                    Sistema de Gestão
+                </strong>
+
+                <small id="brand-tagline">
+                    Gerencie sua empresa
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <ul class="sidebar-nav">
+
+            <li>
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="products.html">
+                    Produtos
+                </a>
+            </li>
+
+            <li>
+                <a href="raw-materials.html">
+                    Matérias-primas
+                </a>
+            </li>
+
+            <li>
+                <a
+                        href="production.html"
+                        class="active"
+                >
+                    Produção
+                </a>
+            </li>
+
+            <li>
+        <span class="nav-disabled">
+          Vendas
+        </span>
+            </li>
+
+            <li>
+                <a href="inventory.html">
+                    Estoque
+                </a>
+            </li>
+
+            <li>
+                <a href="catalogs.html">
+                    Cadastros
+                </a>
+            </li>
+
+        </ul>
+
+
+        <div class="sidebar-foot">
+
+            <div class="sidebar-user">
+
+                <strong id="user-name">
+                    —
+                </strong>
+
+                <span id="user-role">
+          —
+        </span>
+
+            </div>
+
+
+            <button
+                    class="btn btn-ghost btn-small"
+                    id="logout-btn"
+                    type="button"
+            >
+                Sair
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================================================= -->
+    <!-- CONTEÚDO -->
+    <!-- ================================================= -->
+
+    <main class="main">
+
+        <div class="page-head page-head-actions">
+
+            <div>
+
+                <h1>
+                    Produção
+                </h1>
+
+                <p class="page-subtitle">
+                    Registre a transformação de matérias-primas em produtos acabados
+                </p>
+
+            </div>
+
+
+            <button
+                    class="btn btn-primary"
+                    id="new-production-btn"
+                    type="button"
+            >
+                Registrar produção
+            </button>
+
+        </div>
+
+
+        <hr class="fold-divider"/>
+
+
+        <!-- ================================================= -->
+        <!-- INDICADORES -->
+        <!-- ================================================= -->
+
+        <section class="stat-grid compact-stats">
+
+            <div class="card stat-card">
+
+        <span class="stat-label">
+          Produções registradas
+        </span>
+
+                <span
+                        class="stat-value skeleton"
+                        id="productions-count"
+                >
+          …
+        </span>
+
+                <span class="stat-hint">
+          Total de ordens concluídas
+        </span>
+
+            </div>
+
+
+            <div class="card stat-card">
+
+        <span class="stat-label">
+          Produções hoje
+        </span>
+
+                <span
+                        class="stat-value skeleton"
+                        id="productions-today"
+                >
+          …
+        </span>
+
+                <span class="stat-hint">
+          Registradas no dia atual
+        </span>
+
+            </div>
+
+
+            <div class="card stat-card">
+
+        <span class="stat-label">
+          Produtos produzidos
+        </span>
+
+                <span
+                        class="stat-value skeleton"
+                        id="distinct-products"
+                >
+          …
+        </span>
+
+                <span class="stat-hint">
+          Produtos diferentes no histórico
+        </span>
+
+            </div>
+
+
+            <div class="card stat-card">
+
+        <span class="stat-label">
+          Insumos hoje
+        </span>
+
+                <span
+                        class="stat-value skeleton"
+                        id="materials-today"
+                >
+          …
+        </span>
+
+                <span class="stat-hint">
+          Registros de matérias-primas consumidas
+        </span>
+
+            </div>
+
+        </section>
+
+
+        <hr class="fold-divider"/>
+
+
+        <!-- ================================================= -->
+        <!-- HISTÓRICO -->
+        <!-- ================================================= -->
+
+        <section class="card data-card">
+
+            <div class="table-toolbar">
+
+                <div>
+
+                    <h2>
+                        Histórico de produção
+                    </h2>
+
+                    <p
+                            class="muted table-summary"
+                            id="productions-summary"
+                    >
+                        Carregando produções…
+                    </p>
+
+                </div>
+
+
+                <div class="search-box">
+
+                    <label
+                            class="visually-hidden"
+                            for="production-search"
+                    >
+                        Buscar produção
+                    </label>
+
+                    <input
+                            id="production-search"
+                            type="search"
+                            autocomplete="off"
+                            placeholder="Buscar produto ou matéria-prima"
+                    />
+
+                </div>
+
+            </div>
+
+
+            <div
+                    class="alert alert-danger"
+                    id="production-error"
+                    role="alert"
+            ></div>
+
+
+            <div
+                    class="alert alert-success"
+                    id="production-success"
+                    role="status"
+            ></div>
+
+
+            <div class="production-info">
+
+                <strong>
+                    Produção imediata
+                </strong>
+
+                <span>
+          Ao registrar uma produção, as matérias-primas são
+          retiradas do estoque e o produto acabado recebe a
+          quantidade produzida automaticamente.
+        </span>
+
+            </div>
+
+
+            <div class="table-scroll">
+
+                <table class="data-table">
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            Data
+                        </th>
+
+                        <th>
+                            Produto
+                        </th>
+
+                        <th class="num">
+                            Produzido
+                        </th>
+
+                        <th>
+                            Insumos
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th class="actions-col">
+                            Ações
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody id="productions-body">
+
+                    <tr class="empty-row">
+
+                        <td colspan="6">
+                            Carregando…
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- MODAL: REGISTRAR PRODUÇÃO -->
+<!-- ================================================= -->
+
+<div
+        class="modal-backdrop"
+        id="production-modal"
+        aria-hidden="true"
+>
+
+    <div
+            class="modal production-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="production-modal-title"
+    >
+
+        <div class="modal-head">
+
+            <div>
+
+                <h2 id="production-modal-title">
+                    Registrar produção
+                </h2>
+
+                <p>
+                    Informe o produto produzido e todas as
+                    matérias-primas consumidas.
+                </p>
+
+            </div>
+
+
+            <button
+                    class="icon-btn"
+                    id="production-modal-close"
+                    type="button"
+                    aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+                class="alert alert-danger"
+                id="production-form-error"
+                role="alert"
+        ></div>
+
+
+        <form id="production-form">
+
+
+            <!-- PRODUTO -->
+
+            <div class="field">
+
+                <label for="production-product">
+                    Produto produzido
+                </label>
+
+                <select
+                        id="production-product"
+                        required
+                >
+
+                    <option value="">
+                        Selecione o produto
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PREVIEW DO PRODUTO -->
+
+            <div
+                    class="production-product-preview"
+                    id="product-preview"
+                    hidden
+            >
+
+                <div>
+
+          <span class="stock-preview-label">
+            Estoque atual
+          </span>
+
+                    <strong id="product-current-stock">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+          <span class="stock-preview-label">
+            Unidade
+          </span>
+
+                    <strong id="product-unit">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUANTIDADE PRODUZIDA -->
+
+            <div class="field">
+
+                <label for="production-quantity">
+                    Quantidade produzida
+                </label>
+
+                <input
+                        id="production-quantity"
+                        type="number"
+                        min="0.001"
+                        step="0.001"
+                        inputmode="decimal"
+                        required
+                        placeholder="0"
+                />
+
+                <small class="field-help">
+                    Essa quantidade será adicionada ao estoque do produto.
+                </small>
+
+            </div>
+
+
+            <hr class="production-divider"/>
+
+
+            <!-- MATÉRIAS-PRIMAS -->
+
+            <div class="production-materials-head">
+
+                <div>
+
+                    <h3>
+                        Matérias-primas consumidas
+                    </h3>
+
+                    <p>
+                        Informe o consumo total de cada insumo nesta produção.
+                    </p>
+
+                </div>
+
+
+                <button
+                        class="btn btn-ghost btn-small"
+                        id="add-material-btn"
+                        type="button"
+                >
+                    Adicionar insumo
+                </button>
+
+            </div>
+
+
+            <div
+                    class="production-materials-list"
+                    id="production-materials"
+            ></div>
+
+
+            <div class="production-atomic-warning">
+
+                <strong>
+                    Importante:
+                </strong>
+
+                se algum insumo não tiver estoque suficiente,
+                nenhuma alteração será realizada.
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                        class="btn btn-ghost"
+                        id="production-form-cancel"
+                        type="button"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                        class="btn btn-primary"
+                        id="production-form-submit"
+                        type="submit"
+                >
+                    Registrar produção
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- MODAL: DETALHES -->
+<!-- ================================================= -->
+
+<div
+        class="modal-backdrop"
+        id="production-details-modal"
+        aria-hidden="true"
+>
+
+    <div
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="production-details-title"
+    >
+
+        <div class="modal-head">
+
+            <div>
+
+                <h2 id="production-details-title">
+                    Detalhes da produção
+                </h2>
+
+                <p id="production-details-code">
+                    —
+                </p>
+
+            </div>
+
+
+            <button
+                    class="icon-btn"
+                    id="production-details-close"
+                    type="button"
+                    aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="production-details-grid">
+
+            <div class="production-detail">
+
+        <span>
+          Produto
+        </span>
+
+                <strong id="details-product">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="production-detail">
+
+        <span>
+          Quantidade produzida
+        </span>
+
+                <strong id="details-quantity">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="production-detail">
+
+        <span>
+          Data
+        </span>
+
+                <strong id="details-date">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="production-detail">
+
+        <span>
+          Status
+        </span>
+
+                <strong id="details-status">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="production-details-materials">
+
+            <h3>
+                Matérias-primas consumidas
+            </h3>
+
+
+            <div class="table-scroll">
+
+                <table class="data-table">
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            Matéria-prima
+                        </th>
+
+                        <th class="num">
+                            Quantidade consumida
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody id="details-materials-body"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+            <button
+                    class="btn btn-primary"
+                    id="production-details-ok"
+                    type="button"
+            >
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/production.js"></script>
+
+</body>
+</html>

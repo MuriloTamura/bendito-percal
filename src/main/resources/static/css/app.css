@@ -1534,3 +1534,380 @@ th.num {
   }
 
 }
+
+/* =========================================================
+   PRODUÇÃO
+   ========================================================= */
+
+.production-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  margin: 14px 22px 4px;
+  padding: 11px 13px;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  background: var(--color-paper);
+
+  color: var(--color-ink-soft);
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+.production-info strong {
+  flex: 0 0 auto;
+
+  color: var(--color-ink);
+}
+
+
+/* =========================================================
+   MODAL DE PRODUÇÃO
+   ========================================================= */
+
+.production-modal {
+  width: min(760px, 100%);
+}
+
+
+.production-product-preview {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+
+  padding: 14px;
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--color-paper);
+}
+
+
+.production-product-preview[hidden] {
+  display: none;
+}
+
+
+.production-product-preview > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+
+.production-product-preview strong {
+  font-family: var(--font-mono);
+
+  color: var(--color-ink);
+}
+
+
+.production-divider {
+  border: 0;
+
+  border-top:
+          1px solid var(--color-border);
+
+  margin: 23px 0;
+}
+
+
+/* =========================================================
+   MATÉRIAS-PRIMAS DA PRODUÇÃO
+   ========================================================= */
+
+.production-materials-head {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 14px;
+}
+
+
+.production-materials-head h3 {
+  margin: 0;
+
+  font-family: var(--font-display);
+
+  font-size: 16px;
+
+  color: var(--color-ink);
+}
+
+
+.production-materials-head p {
+  margin: 4px 0 0;
+
+  color: var(--color-ink-soft);
+
+  font-size: 12px;
+}
+
+
+.production-materials-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+.production-material-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 1.5fr)
+    minmax(130px, 0.65fr)
+    minmax(130px, 0.65fr)
+    34px;
+
+  align-items: end;
+
+  gap: 10px;
+
+  padding: 13px;
+
+  border:
+          1px solid var(--color-border);
+
+  border-radius:
+          var(--radius-md);
+
+  background:
+          var(--color-paper);
+}
+
+
+.production-material-field {
+  margin-bottom: 0;
+}
+
+
+.production-material-stock {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding-bottom: 2px;
+}
+
+
+.production-material-stock span {
+  margin-bottom: 4px;
+
+  color: var(--color-ink-faint);
+
+  font-size: 10.5px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+}
+
+
+.production-material-stock strong {
+  font-family: var(--font-mono);
+
+  font-size: 12.5px;
+
+  color: var(--color-ink);
+}
+
+
+/* =========================================================
+   REMOVER INSUMO
+   ========================================================= */
+
+.production-remove-material {
+  appearance: none;
+
+  width: 34px;
+  height: 38px;
+
+  border: 0;
+
+  border-radius:
+          var(--radius-sm);
+
+  background:
+          transparent;
+
+  color:
+          var(--color-danger);
+
+  cursor: pointer;
+
+  font-size: 22px;
+
+  line-height: 1;
+}
+
+
+.production-remove-material:hover {
+  background:
+          var(--color-danger-soft);
+}
+
+
+/* =========================================================
+   AVISO DE TRANSAÇÃO
+   ========================================================= */
+
+.production-atomic-warning {
+  margin-top: 16px;
+
+  padding: 11px 13px;
+
+  border:
+          1px solid var(--color-border);
+
+  border-radius:
+          var(--radius-sm);
+
+  background:
+          var(--color-warning-soft);
+
+  color:
+          var(--color-warning);
+
+  font-size: 11.5px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   DETALHES DA PRODUÇÃO
+   ========================================================= */
+
+.production-details-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 10px;
+
+  margin-bottom: 24px;
+}
+
+
+.production-detail {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  padding: 13px;
+
+  border:
+          1px solid var(--color-border);
+
+  border-radius:
+          var(--radius-md);
+
+  background:
+          var(--color-paper);
+}
+
+
+.production-detail span {
+  color:
+          var(--color-ink-faint);
+
+  font-size: 10.5px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+}
+
+
+.production-detail strong {
+  color:
+          var(--color-ink);
+
+  font-size: 13.5px;
+}
+
+
+.production-details-materials h3 {
+  margin-bottom: 10px;
+
+  font-family:
+          var(--font-display);
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 720px) {
+
+  .production-material-row {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .production-remove-material {
+    width: 100%;
+  }
+
+
+  .production-materials-head {
+    flex-direction: column;
+  }
+
+
+  .production-details-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .production-product-preview {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .production-info {
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+}
